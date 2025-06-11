@@ -16,7 +16,7 @@ export const About = () => {
           />
           <div className="flex flex-col items-center md:items-start text-center md:text-left justify-center max-w-xl">
             <h2 className="text-3xl md:text-4xl font-bold">
-              <span className="text-green-600">About</span> Company
+              <span className="text-green-600">About</span> Sarastya
             </h2>
             <p className="text-muted-foreground mt-4 text-lg">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do

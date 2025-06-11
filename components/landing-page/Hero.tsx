@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
 import { HeroCards } from "./HeroCards";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { GitHubLogoIcon } from "@radix-ui/react-icons"; // You might want to replace this icon if not relevant to Sarastya
 
 export const Hero = () => {
   return (
@@ -11,35 +11,36 @@ export const Hero = () => {
           <main className="text-5xl md:text-6xl font-bold leading-tight">
             <h1 className="inline">
               <span className="inline bg-gradient-to-r from-[#F596D3]  to-[#D247BF] text-transparent bg-clip-text">
-                Shadcn
+                Kickstart
               </span>{" "}
-              landing page
+              Career Journey
             </h1>{" "}
             for{" "}
             <h2 className="inline">
               <span className="inline bg-gradient-to-r from-[#61DAFB] via-[#1fc0f1] to-[#03a3d7] text-transparent bg-clip-text">
-                React
+                Future
               </span>{" "}
-              developers
+              Innovators
             </h2>
           </main>
 
           <p className="text-xl text-muted-foreground md:w-10/12 mx-auto lg:mx-0">
-            Build your React landing page effortlessly with the required sections
-            to your project.
+            Secure your Internship at Sarastya Agility. Gain hands-on experience, learn from experts, and make a real impact on exciting projects.
           </p>
 
           <div className="flex flex-col md:flex-row gap-4 items-center md:items-start justify-center lg:justify-start">
-            <Button className="w-full md:w-auto">Get Started</Button>
+            <Button className="w-full md:w-auto">Apply Now</Button> {/* Changed to "Apply Now" */}
 
+            {/* Consider changing or removing this button if a GitHub repo isn't relevant for students */}
             <a
               rel="noreferrer noopener"
-              href="https://github.com/leoMirandaa/shadcn-landing-page.git"
+              href="/about-sarastya" // Example: link to an 'About Us' or 'Program Details' page
               target="_blank"
               className={`${buttonVariants({ variant: "outline" })} w-full md:w-auto flex items-center justify-center`}
             >
-              Github Repository
-              <GitHubLogoIcon className="ml-2 w-5 h-5" />
+              Learn More
+              {/* Replace GitHubLogoIcon if not relevant. Maybe an arrow icon? */}
+              {/* <GitHubLogoIcon className="ml-2 w-5 h-5" /> */}
             </a>
           </div>
         </div>

@@ -1,5 +1,7 @@
 'use client';
 import { useState } from "react";
+import Image from "next/image"; // Import Image for the logo
+import Link from "next/link"; // Ensure Link is imported if you're using it without the full path
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -13,29 +15,30 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { GitHubLogoIcon } from "@radix-ui/react-icons"; // Keep if linking to a GitHub repo
 import { buttonVariants } from "@/components/ui/button";
 import { Menu } from "lucide-react";
 import { ModeToggle } from "./mode-toggle";
-import { LogoIcon } from "./Icons";
+// import { LogoIcon } from "./Icons"; // Remove LogoIcon, as we're using Image
 
 interface RouteProps {
   href: string;
   label: string;
 }
 
+// Updated navigation links for a PKL/Internship landing page
 const routeList: RouteProps[] = [
   {
-    href: "#features",
-    label: "Features",
+    href: "#benefits", // e.g., Benefits of interning at Sarastya
+    label: "Benefits",
   },
   {
-    href: "#testimonials",
-    label: "Testimonials",
+    href: "#programs", // e.g., Details about PKL/Internship programs
+    label: "Programs",
   },
   {
-    href: "#pricing",
-    label: "Pricing",
+    href: "#how-to-apply", // e.g., Step-by-step application guide
+    label: "How to Apply",
   },
   {
     href: "#faq",
@@ -53,10 +56,17 @@ export const Navbar = () => {
             <a
               rel="noreferrer noopener"
               href="/"
-              className="ml-2 font-bold text-xl flex"
+              className="ml-2 font-bold text-xl flex items-center gap-2" // Added items-center and gap-2 for alignment
             >
-              <LogoIcon />
-              ShadcnUI/React
+              {/* Replaced LogoIcon with Image component for sarastya-logo.png */}
+              <Image
+                src="/sarastya-logo-warna.jpeg" // Path to your logo in the public folder
+                alt="Sarastya Agility Logo"
+                width={32} // Adjust width as needed
+                height={32} // Adjust height as needed
+                className="rounded-full" // Example styling for a round logo
+              />
+              Sarastya Agility
             </a>
           </NavigationMenuItem>
 
@@ -80,7 +90,7 @@ export const Navbar = () => {
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
-                    Shadcn/React
+                    Sarastya Agility {/* Updated mobile sheet title */}
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col justify-center items-center gap-2 mt-4">
@@ -97,14 +107,14 @@ export const Navbar = () => {
                   ))}
                   <a
                     rel="noreferrer noopener"
-                    href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-                    target="_blank"
+                    href="/signin" // Link to your actual Sign In/Login page
+                    target="_self" // Keep it in the same tab
                     className={`w-[110px] border ${buttonVariants({
                       variant: "secondary",
                     })}`}
                   >
-                    <GitHubLogoIcon className="mr-2 w-5 h-5" />
-                    Github
+                    {/* <GitHubLogoIcon className="mr-2 w-5 h-5" /> Removed GitHub icon */}
+                    Sign In {/* Changed button text */}
                   </a>
                 </nav>
               </SheetContent>
@@ -130,12 +140,12 @@ export const Navbar = () => {
           <div className="hidden md:flex gap-2">
             <a
               rel="noreferrer noopener"
-              href="https://github.com/leoMirandaa/shadcn-landing-page.git"
-              target="_blank"
+              href="/signin" // Link to your actual Sign In/Login page
+              target="_self" // Keep it in the same tab
               className={`border ${buttonVariants({ variant: "secondary" })}`}
             >
-              <GitHubLogoIcon className="mr-2 w-5 h-5" />
-              Github
+              {/* <GitHubLogoIcon className="mr-2 w-5 h-5" /> Removed GitHub icon */}
+              Sign In {/* Changed button text */}
             </a>
 
             <ModeToggle />
