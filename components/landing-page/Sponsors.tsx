@@ -14,7 +14,7 @@ interface MilestoneProps {
 const careerMilestones: MilestoneProps[] = [
   {
     icon: <Briefcase size={34} />,
-    name: "PKL/Prakerin", // Practical Work/Field Practice
+    name: "Internship", // Practical Work/Field Practice
   },
   {
     icon: <Star size={34} />,
