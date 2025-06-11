@@ -41,7 +41,7 @@ export function SignInForm({
       const data = await response.json();
 
       localStorage.setItem("token", data.token);
-      
+
       if (remember) {
         localStorage.setItem("rememberedIdentifier", identifier);
       }
@@ -59,7 +59,6 @@ export function SignInForm({
     }
   };
 
-
   return (
     <form className={cn("flex flex-col gap-6", className)} onSubmit={handleSubmit} {...props}>
       <SignInHeader />
@@ -72,11 +71,7 @@ export function SignInForm({
           Sign In
         </Button>
         <GoogleSignIn />
-        <Button type="button" variant="outline" className="w-full p-6 uppercase"
-          onClick={() => { router.push("/employee-signin"); }}
-        >
-          Sign In with ID Employee
-        </Button>
+        {/* The "Sign In with ID Employee" button has been removed from here */}
       </div>
       <Footer />
     </form>

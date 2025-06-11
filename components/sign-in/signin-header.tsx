@@ -5,7 +5,7 @@ const SignInHeader = () => {
     <div className="flex flex-col items-start gap-2">
       <h1 className="text-3xl font-semibold">Sign In</h1>
       <p className="text-muted-foreground text-sm">
-        Welcome back to HRIS CMLabs! Manage verything with ease.
+        Ready for real-world experience? Sign in to manage your application or start a new one.
       </p>
     </div>
   );
