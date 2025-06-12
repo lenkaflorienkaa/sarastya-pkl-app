@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
 import { HeroCards } from "./HeroCards";
-import { GitHubLogoIcon } from "@radix-ui/react-icons"; // You might want to replace this icon if not relevant to Sarastya
+import Link from "next/link"; // Import Link for navigation
 
 export const Hero = () => {
   return (
@@ -29,18 +29,17 @@ export const Hero = () => {
           </p>
 
           <div className="flex flex-col md:flex-row gap-4 items-center md:items-start justify-center lg:justify-start">
-            <Button className="w-full md:w-auto">Apply Now</Button> {/* Changed to "Apply Now" */}
+            {/* "Apply Now" button links to the sign-in page */}
+            <Link href="/sign-in">
+              <Button className="w-full md:w-auto">Apply Now</Button>
+            </Link>
 
-            {/* Consider changing or removing this button if a GitHub repo isn't relevant for students */}
+            {/* "Learn More" button scrolls to the #sponsors section */}
             <a
-              rel="noreferrer noopener"
-              href="/about-sarastya" // Example: link to an 'About Us' or 'Program Details' page
-              target="_blank"
+              href="#sponsors" // This will scroll to the element with id="sponsors"
               className={`${buttonVariants({ variant: "outline" })} w-full md:w-auto flex items-center justify-center`}
             >
               Learn More
-              {/* Replace GitHubLogoIcon if not relevant. Maybe an arrow icon? */}
-              {/* <GitHubLogoIcon className="ml-2 w-5 h-5" /> */}
             </a>
           </div>
         </div>
