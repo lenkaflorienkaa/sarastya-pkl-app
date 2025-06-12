@@ -1,5 +1,3 @@
-"use client";
-
 import "@/app/landing-page/app.css"; // optional, if you have custom styles
 
 // Landing Page Sections
@@ -13,10 +11,9 @@ import { Services } from "@/components/landing-page/Services";
 import { Cta } from "@/components/landing-page/Cta";
 import { Testimonials } from "@/components/landing-page/Testimonials";
 import { Team } from "@/components/landing-page/Team";
-import { Pricing } from "@/components/landing-page/Pricing";
 import { Newsletter } from "@/components/landing-page/Newsletter";
 import { FAQ } from "@/components/landing-page/FAQ";
-import { Footer } from "@/components/landing-page/Footer";
+import Footer from "@/components/landing-page/Footer"; // <--- FIXED: Changed from { Footer } to Footer
 import { ScrollToTop } from "@/components/landing-page/ScrollToTop";
 
 export default function LandingPage() {
@@ -32,7 +29,6 @@ export default function LandingPage() {
       <Cta />
       <Testimonials />
       <Team />
-      <Pricing />
       <Newsletter />
       <FAQ />
       <Footer />

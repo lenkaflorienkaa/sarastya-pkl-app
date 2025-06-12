@@ -53,21 +53,19 @@ export const Navbar = () => {
       <NavigationMenu className="mx-auto">
         <NavigationMenuList className="container h-14 px-4 w-screen flex justify-between ">
           <NavigationMenuItem className="font-bold flex">
-            <a
-              rel="noreferrer noopener"
+            <Link
               href="/"
-              className="ml-2 font-bold text-xl flex items-center gap-2" // Added items-center and gap-2 for alignment
+              className="ml-2 font-bold text-xl flex items-center gap-2"
             >
-              {/* Replaced LogoIcon with Image component for sarastya-logo.png */}
               <Image
-                src="/sarastya-logo-warna.jpeg" // Path to your logo in the public folder
+                src="/sarastya-logo-warna.jpeg"
                 alt="Sarastya Agility Logo"
-                width={32} // Adjust width as needed
-                height={32} // Adjust height as needed
-                className="rounded-full" // Example styling for a round logo
+                width={32}
+                height={32}
+                className="rounded-full"
               />
               Sarastya Agility
-            </a>
+            </Link>
           </NavigationMenuItem>
 
           {/* mobile */}
@@ -90,7 +88,7 @@ export const Navbar = () => {
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
-                    Sarastya Agility {/* Updated mobile sheet title */}
+                    Sarastya Agility
                   </SheetTitle>
                 </SheetHeader>
                 <nav className="flex flex-col justify-center items-center gap-2 mt-4">
@@ -105,17 +103,15 @@ export const Navbar = () => {
                       {label}
                     </a>
                   ))}
-                  <a
-                    rel="noreferrer noopener"
-                    href="/signin" // Link to your actual Sign In/Login page
-                    target="_self" // Keep it in the same tab
+                  <Link
+                    href="/sign-in" // CHANGED: Updated to /sign-in to match /app/sign-in/page.tsx
+                    onClick={() => setIsOpen(false)}
                     className={`w-[110px] border ${buttonVariants({
                       variant: "secondary",
                     })}`}
                   >
-                    {/* <GitHubLogoIcon className="mr-2 w-5 h-5" /> Removed GitHub icon */}
-                    Sign In {/* Changed button text */}
-                  </a>
+                    Sign In
+                  </Link>
                 </nav>
               </SheetContent>
             </Sheet>
@@ -138,15 +134,12 @@ export const Navbar = () => {
           </nav>
 
           <div className="hidden md:flex gap-2">
-            <a
-              rel="noreferrer noopener"
-              href="/signin" // Link to your actual Sign In/Login page
-              target="_self" // Keep it in the same tab
+            <Link
+              href="/sign-in" // CHANGED: Updated to /sign-in to match /app/sign-in/page.tsx
               className={`border ${buttonVariants({ variant: "secondary" })}`}
             >
-              {/* <GitHubLogoIcon className="mr-2 w-5 h-5" /> Removed GitHub icon */}
-              Sign In {/* Changed button text */}
-            </a>
+              Sign In
+            </Link>
 
             <ModeToggle />
           </div>
