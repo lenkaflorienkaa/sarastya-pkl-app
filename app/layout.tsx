@@ -1,9 +1,12 @@
-// app/layout.tsx
+// FILE: /app/layout.tsx
+"use client"; // This is now a client component because ProfileProvider uses state.
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "leaflet/dist/leaflet.css";
 import "./globals.css";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ProfileProvider } from '@/lib/context/ProfileContext'; // Import the provider
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,10 +18,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Sarastya PKL App",
-  description: "Web app for managing PKL registration",
-};
+// Note: Metadata is typically handled in Server Components. 
+// Since this is now a Client Component, you might manage the title in other ways if needed.
+// export const metadata: Metadata = {
+//   title: "Sarastya PKL App",
+//   description: "Web app for managing PKL registration",
+// };
 
 export default function RootLayout({
   children,
@@ -28,9 +33,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <GoogleOAuthProvider clientId="1012278096706-4v2nm13buqr56b7g7emvpou3b6muk4lk.apps.googleusercontent.com">
-          {children}
-        </GoogleOAuthProvider>
+        {/* ProfileProvider now wraps all pages */}
+        <ProfileProvider>
+          <GoogleOAuthProvider clientId="1012278096706-4v2nm13buqr56b7g7emvpou3b6muk4lk.apps.googleusercontent.com">
+            {children}
+          </GoogleOAuthProvider>
+        </ProfileProvider>
       </body>
     </html>
   );
