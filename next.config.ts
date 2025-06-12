@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
+/** @type {import('next').NextConfig} */
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    domains: ["i.pravatar.cc"], // ✅ Allow images from this external domain
+  },
 };
 
 export default nextConfig;
