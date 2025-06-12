@@ -1,16 +1,11 @@
 // FILE: /app/dashboard/page.tsx
-// All components are combined into this single file for simplicity.
-// The pink color #DD489A is applied directly using Tailwind's arbitrary values.
 "use client";
 
 import React, { useState } from 'react';
-// import Link from 'next/link'; // Removed this import to resolve the error. Standard <a> tags will be used for navigation.
 import { LayoutDashboard, Briefcase, User, FileText, Calendar, Lightbulb } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- shadcn/ui Component Imports --- //
-// You would have these components in your project after running `npx shadcn-ui@latest init`
-// and `npx shadcn-ui@latest add card button`.
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -51,7 +46,7 @@ const Sidebar = ({ isExpanded, setIsExpanded, activePage }: { isExpanded: boolea
                             href={item.href}
                             className={`flex items-center p-3 rounded-lg transition-colors ${
                                 activePage === item.title 
-                                ? 'bg-[#DD489A]/10 text-[#DD489A]' // Use pink for active state
+                                ? 'bg-[#DD489A]/10 text-[#DD489A]'
                                 : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
                             }`}
                         >
@@ -90,7 +85,7 @@ const WelcomeCard = () => (
                 <div className="w-32 h-2 bg-secondary rounded-full mt-2 mx-auto">
                     <div className="w-3/4 h-2 bg-[#DD489A] rounded-full"></div>
                 </div>
-                <a href="#" className="mt-2 text-sm text-[#DD489A] hover:underline">Complete Profile</a>
+                <a href="/account" className="mt-2 text-sm text-[#DD489A] hover:underline">Complete Profile</a>
             </div>
         </CardContent>
     </Card>
@@ -172,7 +167,10 @@ const RecommendedPositionsCard = () => (
                             <p className="font-semibold">{pos.position}</p>
                             <p className="text-sm text-muted-foreground">{pos.location} &middot; {pos.type}</p>
                         </div>
-                        <Button variant="ghost" size="sm">View</Button>
+                        <Button asChild variant="ghost" size="sm">
+                            {/* This link now correctly navigates to the view page with the position ID */}
+                            <a href={`/position-view?id=${pos.id}`}>View</a>
+                        </Button>
                     </div>
                 ))}
             </div>
