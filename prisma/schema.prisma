@@ -1,0 +1,35 @@
+// FILE: prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// FIX 1: Model names should be singular and capitalized (e.g., "Link" instead of "links").
+// FIX 2: Correctly defined a one-to-one relationship.
+model Link {
+  id            BigInt    @id @default(autoincrement())
+  userId        BigInt    @unique // In a one-to-one, this must be unique.
+  linkedin_url  String?   @db.VarChar
+  github_url    String?   @db.VarChar
+  portfolio_url String?   @db.VarChar
+  user          User      @relation(fields: [userId], references: [id])
+}
+
+// FIX 3: Model name changed to "User"
+model User {
+  id          BigInt    @id @default(autoincrement())
+  email       String    @unique @db.VarChar
+  password    String?   @db.VarChar
+  name        String?   @db.VarChar
+  phone       String?   @db.VarChar
+  about       String?
+  avatar_url  String?   @db.VarChar
+  created_at  DateTime? @default(now()) @db.Timestamptz(6)
+  institution String?
+  link        Link?     // FIX 4: Changed to singular "link" to reflect the one-to-one relationship.
+}

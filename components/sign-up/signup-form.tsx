@@ -62,7 +62,7 @@ export const SignUpForm = ({
 
     try {
       const response = await fetch(
-        `https://pblcmlabs.duckdns.org/api/register`,
+        `api/auth/signin/`,
         {
           method: "POST",
           headers: {
@@ -96,7 +96,7 @@ export const SignUpForm = ({
           confirmPassword: "",
           terms: false,
         });
-        router.push("/signin");
+        router.push("/sign-in");
       } else {
         setError(data.message || "Registration failed");
       }

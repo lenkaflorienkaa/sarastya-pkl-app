@@ -1,9 +1,9 @@
 // FILE: /lib/context/ProfileContext.tsx
 "use client";
 
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 
-// This is the initial data for the profile. In a real app, you'd fetch this.
+// This is the initial or fallback data for the profile.
 const initialProfile = {
     name: 'Budi Hartono',
     email: 'budi.hartono@example.com',
@@ -31,6 +31,42 @@ const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 // Create the Provider component. This is what will hold the state.
 export const ProfileProvider = ({ children }: { children: ReactNode }) => {
     const [userProfile, setUserProfile] = useState(initialProfile);
+
+    // FIX: Added useEffect to fetch profile data from the API when the app loads.
+    useEffect(() => {
+        const fetchProfile = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const response = await fetch('/api/profile', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        // Restructure data to match the frontend's expected format
+                        const profileData = {
+                            ...data,
+                            links: {
+                                linkedin: data.links?.linkedin_url || '',
+                                github: data.links?.github_url || '',
+                                portfolio: data.links?.portfolio_url || '',
+                            }
+                        };
+                        setUserProfile(profileData);
+                    } else {
+                        // Handle cases where the token is invalid or expired
+                        console.error("Failed to fetch profile:", response.statusText);
+                        localStorage.removeItem('token');
+                    }
+                } catch (error) {
+                    console.error("An error occurred while fetching the profile:", error);
+                }
+            }
+        };
+
+        fetchProfile();
+    }, []); // The empty dependency array ensures this runs only once on mount.
 
     return (
         <ProfileContext.Provider value={{ userProfile, setUserProfile }}>

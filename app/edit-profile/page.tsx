@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 
 // --- CONTEXT AND MOCK DATA --- //
-// Moved context here to make component self-contained.
+// In a real app, this context would be in its own file (/lib/context/ProfileContext.tsx)
 const initialProfile = {
     name: 'Budi Hartono',
     email: 'budi.hartono@example.com',
@@ -110,7 +110,8 @@ const Sidebar = ({ isExpanded, setIsExpanded, activePage }: { isExpanded: boolea
 const EditProfileContent = () => {
     const { userProfile, setUserProfile } = useProfile();
     const [formData, setFormData] = useState(userProfile);
-    const [isModalOpen, setIsModalOpen] = useState(false); // State to control the modal
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         setFormData(userProfile);
@@ -129,15 +130,55 @@ const EditProfileContent = () => {
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    // FIX: Updated handleSubmit to send data to the API
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setUserProfile(formData);
-        setIsModalOpen(true); // Open the modal instead of showing an alert
+        setError(''); // Clear previous errors
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            setError("You are not authenticated. Please sign in again.");
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/profile', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                const updatedProfile = await response.json();
+                
+                // Restructure data from server to match frontend state
+                const restructuredProfile = {
+                    ...updatedProfile,
+                    links: {
+                        linkedin: updatedProfile.links?.linkedin_url || '',
+                        github: updatedProfile.links?.github_url || '',
+                        portfolio: updatedProfile.links?.portfolio_url || '',
+                    }
+                };
+                
+                setUserProfile(restructuredProfile);
+                setIsModalOpen(true); // Show success modal
+            } else {
+                const errorData = await response.json();
+                throw new Error(errorData.message || "Failed to save profile.");
+            }
+        } catch (err: any) {
+            setError(err.message);
+            console.error(err);
+        }
     };
 
     const handleBackToProfile = () => {
         setIsModalOpen(false);
-        window.location.href = '/account'; // Navigate back to the account page
+        window.location.href = '/account';
     };
 
     return (
@@ -149,6 +190,8 @@ const EditProfileContent = () => {
                     </Button>
                     <Button type="submit" className="bg-[#DD489A] hover:bg-[#DD489A]/90 text-white">Save Changes</Button>
                 </div>
+                
+                {error && <p className="text-sm text-red-500">{error}</p>}
 
                 <Card>
                     <CardHeader>
@@ -196,7 +239,6 @@ const EditProfileContent = () => {
                 </Card>
             </form>
 
-            {/* --- SAVE CHANGES MODAL --- */}
             <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
                 <DialogContent>
                     <DialogHeader>
@@ -205,7 +247,7 @@ const EditProfileContent = () => {
                            Profile Saved Successfully!
                         </DialogTitle>
                         <DialogDescription>
-                            Your changes have been saved. You can now return to your profile.
+                            Your changes have been saved to the database.
                         </DialogDescription>
                     </DialogHeader>
                     <DialogFooter>
